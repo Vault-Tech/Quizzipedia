@@ -1,0 +1,139 @@
+<div id="myCarousel" class="carousel slide hidden-xs" data-ride="carousel">
+	 
+	  <ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"> </li >
+		<li data-target="#myCarousel" data-slide-to="1"> </li>
+		<li data-target ="#myCarousel" data-slide-to="2"> </li>
+	  </ol >
+	 
+	  <div class="carousel-inner">
+		<div class="item active">
+			<img src="./assets/img/placeholder1.jpg"/>
+			<div class="carousel-caption">
+			  <h1>Crea quiz personalizzati!</h1>
+			  <p ng-if="user.role== null"><a href="/Quizzipedia/signup" class="btn btn-primary btn-sm">Registrati</a></p>
+			</div>
+		</div>
+	  <div class="item">
+	  <img src="./assets/img/placeholder2.jpg"/>
+		  <div class="carousel-caption">
+			<h1>Iscriviti ai nostri enti</h1>
+			<p>Potrai accedere ai quiz privati!</p>
+		  </div>
+	  </div>
+	  <div class="item">
+	  <img src="./assets/img/placeholder3.jpg"/>
+		  <div class="carousel-caption">
+		  <h1>Diverse materie e livelli di difficoltà</h1>
+		  </div>
+	  </div>
+	  </div>
+ 
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev" role="button">
+  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"> </span>
+  <span class="sr-only">Precedente</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next" role="button">
+  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  <span class="sr-only">Prossimo</span>
+  </a>
+  </div>
+		<div class="row">
+            
+			<div class="col-lg-6 col-md-6 col-sm-12 col-sx-12">
+					<h4 class="text-center"><i class="glyphicon glyphicon-stats"></i> Ultimi quiz pubblici</h4>
+						<div class="panel panel-default list1-width-fix">
+							<div class="panel-heading">
+							<div class="panel-body">
+								<div class="list-group">
+                                    <span ng-if = "recentQuizzes.length == 0" class="list-group-item">Nessun quiz pubblico</span>
+									<button ng-if = "recentQuizzes.length != 0" class="list-group-item" ng-repeat = "quiz in recentQuizzes | orderBy: 'creationDate': true | limitTo: 5 "  ng-click="selectQuiz(quiz)">
+										<i class="glyphicon glyphicon-th-list"></i> {{quiz.title}} - 
+										<i class="glyphicon glyphicon-list-alt"></i> {{quiz.topic}}
+										<span class="pull-right">Svolgi<i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                    </button>                                    
+								</div>
+								<div class="text-right">
+									<a href="/Quizzipedia/searchQuiz">Ricerca altri quiz pubblici<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+<!-- 					<h4 class="text-center"><i class="glyphicon glyphicon-stats"></i> Quiz recenti</h4>
+					<div class="panel panel-default list2-width-fix">
+						<div class="panel-heading">
+						<div class="panel-body">
+							<div class="list-group">
+								<a href="#" class="list-group-item">
+									<i class="glyphicon glyphicon-th-list"></i> Titolo del quiz - 
+									<i class="glyphicon glyphicon-list-alt"></i> Materia
+									<span class="pull-right">
+										<span class="badge">1 minuto fa</span>
+										<i class="glyphicon glyphicon-pencil"></i>
+									</span>
+								</a>
+								<a href="#" class="list-group-item">
+									<i class="glyphicon glyphicon-th-list"></i> Titolo del quiz - 
+									<i class="glyphicon glyphicon-list-alt"></i> Materia
+									<span class="pull-right">
+										<span class="badge">2 minuti fa</span>
+										<i class="glyphicon glyphicon-pencil"></i>
+									</span>
+								</a>
+								<a href="#" class="list-group-item">
+									<i class="glyphicon glyphicon-th-list"></i> Titolo del quiz -
+									<i class="glyphicon glyphicon-list-alt"></i> Materia
+									<span class="pull-right">
+										<span class="badge">10 minuti fa</span>
+										<i class="glyphicon glyphicon-pencil"></i>
+									</span>
+								</a>
+								<a href="#" class="list-group-item">
+									<i class="glyphicon glyphicon-th-list"></i> Titolo del quiz -
+									<i class="glyphicon glyphicon-list-alt"></i> Materia
+									<span class="pull-right">
+										<span class="badge">30 minuti fa</span>
+										<i class="glyphicon glyphicon-pencil"></i>
+									</span>
+								</a>
+								<a href="#" class="list-group-item">
+									<i class="glyphicon glyphicon-th-list"></i> Titolo del quiz -
+									<i class="glyphicon glyphicon-list-alt"></i> Materia
+									<span class="pull-right">
+										<span class="badge">32 minuti fa</span>
+										<i class="glyphicon glyphicon-pencil"></i>
+									</span>
+								</a>
+							</div>
+							<div class="text-right">
+								<a href="#">Tutti i quiz <i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>-->
+			</div> 
+			<!-- <div class="clearix visible-sm"></div> -->
+			<div class="col-lg-6 col-md-6 col-sm-12 col-sx-12">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-sx-12">
+						<h4><i class="glyphicon glyphicon-pencil"></i> Crea diversi tipi di domande</h4>
+						<p>Quizzipedia semplificherà la creazione di test per i docenti!</p>
+						<p>Richiedi l'accesso alle classi del tuo ente e potrai creare <strong>quiz</strong>  personalizzati, <strong>pubblici</strong> o riservati a singole <strong>classi</strong>. </p><p>Potrai inoltre creare <strong>domande</strong> di vario tipo da inserire nei tuoi quiz:</p>
+						<ul>
+							<li>Domande vero o falso</li>
+							<li>Domande a risposta aperta</li>
+							<li>Domande a risposta multipla</li>
+							<li>Domande a collegamenti</li>
+							<li>Domande a completamento testo </li>
+						</ul>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-12 col-sx-12">
+						<h4><i class="glyphicon glyphicon-education"></i> Prova i nostri quiz</h4>
+						<p>Quizzipedia fornisce una vasta selezione di <strong>quiz pubblici</strong> che non richiedono un account!</p><p>Gli studenti registrati possono svolgere i quiz privati delle loro classi e visualizzare uno <strong>storico</strong> dei quiz svolti.</p>
+						<h4><i class="glyphicon glyphicon-book"></i> Gestisci le tue classi</h4>
+						<p>Quizzipedia ti consentirà una gestione delle <strong>classi</strong> semplice e intuitiva.</p><p>Potrai gestire le richieste di accesso degli utenti, visualizzare i tuoi <strong>studenti</strong> e le loro <strong>statistiche</strong>.</p>
+					</div>
+				</div>
+			</div>
+</div>

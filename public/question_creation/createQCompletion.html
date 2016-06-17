@@ -1,0 +1,59 @@
+<!-- VARIABLE PART - answers -->
+			<div class="form-group row text-center">
+			<h4 class="text-center">Istruzioni</h4>
+			<p>Per collegare gli spazi del testo alle risposte create, attribuire a ogni risposta il numero corrispondente allo spazio desiderato, rappresentato a sinistra dello spazio.</p>
+			<p>Per creare una risposta scorretta, inserire il valore '-1' al posto del numero dello spazio.</p>
+			<div class="spacer"></div>
+			<h4 class="text-center">Testo</h4>
+			<div class="form-group row form">
+				<span class="btn btn-default" type="button" id="newgap" ng-click="MyCompletionQ.initText()"><i class="glyphicon glyphicon-plus"></i></span>
+			</div>
+			<div class="answContainer row">
+				<div id="complText" class="answerBlock lineGap" ng-repeat="text in MyCompletionQ.question.text track by $index">
+                    
+					<div id="{{$index}}">
+						<textarea ng-if="text.type == 'txt'" type="textarea" placeholder="Inserire il testo..." name="ta1" id="ta1" ng-model="text.value"></textarea>
+						<span ng-if="text.type == 'txt'" class="btn btn-xs btn-xxs btn-danger" ng-click="MyCompletionQ.removeText($index,'txt')"><i class="glyphicon glyphicon-remove"></i></span>
+						<div ng-if="text.type == 'id'"><span class="badge">{{text.value | number:0}}</span><span class="prev-text label-as-badge label-blue">Anteprima risposta </span><span class="btn btn-xs btn-xxs btn-danger" ng-click="MyCompletionQ.removeText($index,'hole')"><i class="glyphicon glyphicon-remove"></i></span></div> <!-- numero buco + anteprima + pulsante-->
+                    </div>
+					<div class="spacer"></div>
+				</div>
+			</div>
+			<h4 class="text-center">Risposte</h4>
+				<!-- new answer -->
+				<div class="form-group row form">
+					<span class="btn btn-default" type="button" id="newAText" ng-click="MyCompletionQ.initAnswer()"><i class="glyphicon glyphicon-align-left"></i></span>
+				</div>
+
+				<div class="answContainer row">
+					<div class="answerBlock" ng-repeat=" answer in MyCompletionQ.question.answer track by $index">
+						<div>
+							<input id="answNumber1" type="number" min="-1" step="1" ng-model="answer.id" required />
+							<textarea type="textarea" placeholder="Risposta..." name="ta1" id="ta1" cols="15" rows="1" ng-model="answer.text"></textarea>
+							<span class="btn btn-xs" ng-click="MyCompletionQ.removeAnswer($index)"><i class="glyphicon glyphicon-remove"></i></span>
+						</div>
+				</div>
+		</div>
+
+
+
+
+<!-- new text piece popup -->
+	<div class="modal fade" id="new" tabindex="-1" role="dialog" aria-labelledby="new" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+				<h4 class="modal-title custom_align" id="Heading">Aggiungi una porzione di testo</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<textarea class="form-control" type="textarea" placeholder="Text..." name="ta1" id="ta1" cols="15" rows="1"></textarea>
+					</div>
+					<div class=text-right><button type="button" class="btn btn-primary">Aggiungi</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of new text popup --> 
+

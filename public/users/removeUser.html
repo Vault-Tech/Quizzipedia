@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it" ng-app="UsersManager">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	 <script src="./assets/js/jquery-1.11.0.min/jquery-1.11.0.min.js"></script>
+    <script src="./assets/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <meta name="description" content="">
+    <meta name="Autore" content="">
+    <link rel="icon" href="./assets/img/favicon.ico">
+
+    <title>Gestione utenti</title>
+
+     <!-- Bootstrap core CSS -->
+    <link href="./assets/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+	<!-- quizzipedia.base.css -->
+	<link href="./assets/css/quizzipedia.base.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+      
+    <script type="text/javascript" src="./public/core.js"></script>	
+    <script type="text/javascript" src="./public/header/CtrlHeader.js" ></script>
+      
+    <!-- Directive angular (HEADER)-->
+    <script src="./public/header/headerLoggedDirector.js"></script>
+    <!--Directive angular (FOOTER)-->
+    <script type="text/javascript" src="./public/footer/pageFooter.js"></script>
+
+    <script type="text/javascript" src="./public/users/CtrlUsers.js"></script>	
+	
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+	<div class="pagewrap"  ng-controller="CtrlUsers">
+        
+        <div ng-controller="CtrlHeader">              
+          <header-logged-director ng-if="user.role == 'director'"></header-logged-director>
+        </div>
+        
+        <div class="row-fluid breadcrumb-div">
+            <ol class="breadcrumb" id="breadcrumb">
+                <li>
+                    Sei in: <a href = "/Quizzipedia/home"><i class="glyphicon glyphicon-home"> </i> Home</a>
+                </li>
+                <li class="active">
+                    <i class="glyphicon glyphicon-user"> </i> Gestione utenti
+                </li>
+            </ol>
+        </div>
+        
+		<div class="container">
+			<h4 class="description text-center">GESTIONE UTENTI </h4>
+            
+			<div class="row userMgmt">
+							
+				<div ng-if =  "users.length == 0"> Non ci sono utenti in questo ente</div>
+				
+			<!-- for each here -->
+			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 userbox text-center" ng-repeat = "user in users">
+				<div class="img-box">
+					<img src="./assets/img/portraits/usr2.jpg" class="img-rounded" />
+				</div>
+				<h4>{{user.firstName}} {{user.lastName}}</h4>
+				<p>{{user.role}}</p>
+				<div class="btn-group btn-group-sx">
+					<span data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger rmUserBtn pull-right" data-title="Delete" data-toggle="modal" data-target="#delete" ng-click="setUserToRemove(user)"><span class="glyphicon glyphicon-trash"></span> Rimuovi dall'ente</button></span>
+				</div>
+			</div>
+			<!-- end of single userbox -->
+			</div>
+        </div>
+	<!-- delete class popup -->
+	<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+				<h4 class="modal-title custom_align" id="Heading">Rimuovi l'utente {{userToRemove.firstName}} {{userToRemove.lastName}}</h4>
+			  </div>
+			<div class="modal-body">
+			<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Sei sicuro di voler rimuovere questo utente?</div>
+			   
+			</div>
+				<div class="modal-footer ">
+				<button type="button" class="btn btn-primary" ng-click = "removeUser()" data-dismiss="modal">Sì</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+			  </div>
+				</div>
+			</div>
+		</div>  <!-- edit of delete popup --> 
+	</div>
+      <page-footer></page-footer>
+  </body>
+</html>

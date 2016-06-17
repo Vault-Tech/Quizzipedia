@@ -1,0 +1,81 @@
+<div class="header">
+		<div class="container">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar-header inline">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand qIcon" href="/Quizzipedia/home"><img src="./assets/img/big_icon.png"></a>
+
+            </div>
+			
+            <ul class="nav navbar-right top-nav pull-right inline">
+                <li class="userDropdown"> 
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-education"></i> <span class="visible-lg-inline visible-inline"> {{user.institution}}</span><b class="caret"></b></a>
+                    <ul class="dropdown-menu dropdown-menu-right">                        
+                        <li  ng-repeat = "institution in institutions">
+                            <a href="/Quizzipedia/home" ng-click="changeInst(institution.institution_name)">{{institution.institution_name}}</a>
+                        </li>
+                         <li class="divider"></li>
+                        <li> <a href = "/Quizzipedia/sendRequest"><span class="blue"> Entra in un nuovo ente</span></a></li>                       
+                    </ul>
+                </li>
+                <li class="userDropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <span class="visible-lg-inline visible-md-inline">Bentornato, <strong class="blue">{{user.firstName}} {{user.lastName}}</strong></span><b class="caret"></b></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="/Quizzipedia/profile"><i class="glyphicon  glyphicon glyphicon-user"></i> Profilo</a>
+                        </li>
+						<!-- class requests if logged in inst, inst requests if not logged in inst -->
+                        <li>
+                            <a href="/Quizzipedia/sendRequest"><i class="glyphicon  glyphicon glyphicon-send"></i> Invia richieste</a>
+                        </li>
+                       <!-- only if logged in an institution -->
+						<li class="divider"></li>
+						<li>
+                            <a href="/Quizzipedia/privateQuizzes"><i class="glyphicon glyphicon-book"></i> Quiz privati</a>
+                        </li>						
+						<li>
+                            <a href="/Quizzipedia/quizHistory"><i class="glyphicon glyphicon-list-alt"></i> Storico dei quiz</a>
+                        </li>
+						<!-- -->
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/Quizzipedia/signout"><i class="glyphicon glyphicon-log-out"></i> Esci</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/Quizzipedia/home"><i class="glyphicon glyphicon-home"></i> Home</a>
+                    </li>
+                    <li>
+                        <a href="/Quizzipedia/searchQuiz"><i class="glyphicon glyphicon-list-alt"></i> Quiz</a>
+                    </li>
+                    <li>
+                        <a href="/Quizzipedia/topicList"><i class="glyphicon glyphicon-th-list"></i> Argomenti</a>
+                    </li>					
+					<!-- <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-education"></i> Institutions <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-book"></i> Classes</a>
+                        </li>
+                    </ul>
+					</li>-->
+					
+                    <li>
+                        <a href="/Quizzipedia/aboutUs"><i class="glyphicon glyphicon-sunglasses"></i> Chi siamo</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+		</div>
+        </div>

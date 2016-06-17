@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="QuestionManager">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	 <script src="./assets/js/jquery-1.11.0.min/jquery-1.11.0.min.js"></script>
+    <script src="./assets/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./assets/img/favicon.ico">
+
+    <title>Gestione domande</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+	<!-- questionzipedia.base.css -->
+	<link href="./assets/css/quizzipedia.base.css" rel="stylesheet">
+      
+      <!-- select2.js -->
+	<link href="./assets/js/select2-4.0.2/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="./assets/js/select2-4.0.2/dist/js/select2.min.js"></script>
+      
+      
+	<!-- chained.js -->
+	<script src="./assets/js/jquery.chained.min.js"></script>
+      
+    <!-- fabric.js -->
+	<script src="./assets/js/fabric.js-1.6.1/dist/fabric.min.js"></script>  
+	
+	<!-- draggable.js -->
+	<script src="./assets/js/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+      
+	
+	<!-- Merge others eventually -->
+	
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      
+      <!-- ANGULAR E UI-BOOTSTRAP -->
+      <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+      <script type="text/javascript" src="./assets/js/ui-bootstrap-tpls-1.3.2.min.js"></script> 
+      
+      <!--  HEADER -->
+      <script type="text/javascript" src="./public/core.js"></script>
+      <script type="text/javascript" src="./public/header/CtrlHeader.js" ></script>
+      <script type="text/javascript" src="./public/footer/Pagination.js" ></script>
+      <script type="text/javascript" src="./public/header/headerLoggedTeacher.js"></script>
+      
+      <script type="text/javascript" src="./public/services/GenericQuestion.js"></script>
+      <script type="text/javascript" src="./public/services/TrueFalseQ.js"></script>
+      <script type="text/javascript" src="./public/services/Attachment.js"></script>
+      
+      <!-- CTRLQUESTIONMANAGER -->
+      <script type="text/javascript" src="./public/question_creation/CtrlQuestionManager.js"></script>
+      
+      <!-- DIRETTIVE PER LA MODIFICA DELLE DOMANDE-->
+      <script type="text/javascript" src="./public/question_creation/directiveModify.js"></script>
+      
+      <!--Directive angular (FOOTER)-->
+      <script type="text/javascript" src="./public/footer/pageFooter.js"></script> 
+      
+      <!-- SCRIPT PER ng-file-upload-->
+      <script src="./assets/ng-file-upload-bower-12.0.4/ng-file-upload-shim.min.js"></script>
+      <script src="./assets/ng-file-upload-bower-12.0.4/ng-file-upload.min.js"></script>
+      
+  </head>
+
+  <body>
+      
+      <div class="pagewrap" ng-controller="CtrlQuestionManager"> 
+          
+          <div ng-controller="CtrlHeader">
+              <header-logged-teacher ng-if="user.role == 'teacher'"></header-logged-teacher>  
+          </div>
+          
+          <div class="row-fluid breadcrumb-div">
+              <ol class="breadcrumb" id="breadcrumb">
+                  <li>
+                    Sei in: <a href = "/Quizzipedia/home"><i class="glyphicon glyphicon-home"> </i> Home</a>
+                  </li>
+                  <li class="active">
+                      <i class="glyphicon glyphicon-question-sign"> </i> Gestione domande
+                  </li>
+              </ol>
+          </div>
+          
+          <div class = "container">              
+              <h4 class="text-center description"><i class="glyphicon glyphicon-question-sign"></i> Le tue domande</h4>
+          
+          <h3 class="panel-title">Hai creato <span class="badge">{{Questionlist.length}}</span> domande</h3>
+          
+          <div class="text-right">
+              <span data-placement="top" data-toggle="tooltip" title="Create New"><a class="btn btn-primary btn-create" href="/Quizzipedia/createQuestion" ><i class="glyphicon glyphicon-plus"></i> Crea nuova</a></span>
+          </div>
+          
+          <div  ng-controller = "CtrlPagination" ng-if = "Questionlist.length != 0">           
+              <div class="padded">
+                  <p>Visualizza
+                      <select ng-model="itemsPerPage" ng-change="setItemsPerPage()"><option>3</option><option selected>6</option><option>10</option><option>20</option><option>30</option>
+                      </select> elementi per pagina
+                  </p>
+              </div>  
+              
+              <table class="table table-hover table-compact qTable" id="questionTable">
+                  
+                  <thead>
+                      <th><i class="glyphicon glyphicon-pencil"></i> Titolo</th>
+                      <th><i class="glyphicon glyphicon-list-alt"></i> Argomento</th>
+                      <th><i class="glyphicon glyphicon-star"></i> Livello</th>
+                      <th> Tipo</th>
+                      <th></th>
+                  </thead>
+                  
+                  <tbody>
+                      <tr ng-repeat="(index, question) in Questionlist.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"><!-- for each quiz -->
+                          <td>{{question.title}}</td>
+                          <td>{{question.topic}}</td>
+                          <td>{{question.difficulty}}</td>
+                          <td>{{question.type}}</td>
+                          <td>
+                              <span data-placement="top" data-toggle="tooltip" title="Elimina"><button class="btn btn-danger  pull-right" data-title="Elimina" data-toggle="modal" data-target="#delete" ng-click="setDeleteQ(((currentPage-1)*itemsPerPage)+index)" ><span class="glyphicon glyphicon-trash"></span> Elimina</button></span>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <!-- end of table -->
+              
+              <div class="clearfix"></div>
+              
+              <div class="text-right">
+                  <uib-pagination total-items="Questionlist.length" ng-model="currentPage" class="pagination-sm" items-per-page="itemsPerPage" boundary-link-numbers="true" force-ellipses="true" max-size="maxSize"></uib-pagination>
+              </div>
+            </div>
+          </div>
+            
+             <!-- delete class popup -->
+            <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                            <h4 class="modal-title custom_align" id="Heading">Rimozione domanda</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-danger">
+                                <span class="glyphicon glyphicon-warning-sign"></span> Sei sicuro di voler rimuovere la domanda "{{Questionlist[deleteQuestion].title}}"?
+                            </div>
+                        </div>
+                        <div class="modal-footer ">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="removeQuestion()">Sì</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="setDeleteQ(null)">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+	</div>
+      <page-footer></page-footer>
+  </body>
+</html>
+
+
+
+
+
+

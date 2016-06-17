@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="RequestsManager">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	 <script src="./assets/js/jquery-1.11.0.min/jquery-1.11.0.min.js"></script>
+    <script src="./assets/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./assets/img/favicon.ico">
+
+    <title>Visualizzazione richieste</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	
+	<!-- quizzipedia.base.css -->
+	<link href="./assets/css/quizzipedia.base.css" rel="stylesheet">
+	
+    <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+      
+    <script type="text/javascript" src="./public/core.js"></script>    
+    <script type="text/javascript" src="./public/header/CtrlHeader.js" ></script>
+      
+    <!-- Directive angular (HEADER)-->
+    <script src="./public/header/headerLoggedDirector.js"></script>
+	<script src="./public/header/headerLoggedTeacher.js"></script>
+    <!--Directive angular (FOOTER)-->
+    <script type="text/javascript" src="./public/footer/pageFooter.js"></script>
+    <!--Directive angular (PILLS)-->
+    <script type="text/javascript"  src="./public/requests/pendingRole.js" ></script>
+    <script type="text/javascript"  src="./public/requests/pendingClass.js" ></script>
+	
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+	<div class="pagewrap" ng-controller="CtrlHeader">
+        
+        <div>        
+		  <header-logged-teacher ng-if="user.role == 'teacher'"></header-logged-teacher>
+          <header-logged-director ng-if="user.role == 'director'"></header-logged-director>
+	  </div>
+        
+		  <div class="row-fluid breadcrumb-div">
+            <ol class="breadcrumb" id="breadcrumb">
+                <li>
+                    Sei in: <a href = "/Quizzipedia/home"><i class="glyphicon glyphicon-home"> </i> Home</a>
+                </li>
+                <li class="active">
+                    <i class="glyphicon glyphicon-envelope"> </i> Gestione richieste
+                </li>
+            </ol>
+        </div>
+		
+		<div class="container">
+			<ul class="nav nav-pills col-md-offset-4 col-sm-offset-3 col-xs-offset-2"  ng-if = "user.role == 'director'">
+				  <li class="active"><a data-toggle="pill" href="#role" >Richieste pendenti di ruolo</a></li>
+				  <li><a data-toggle="pill" href="#class">Richieste pendenti di classe</a></li>
+			</ul>
+			
+			<div ng-if = "user.role == 'teacher'">
+				<h4 class="description text-center">Richieste in sospeso</h4> 
+				<pending-class></pending-class>
+			</div>
+			
+			<div class="tab-content" ng-if = "user.role == 'director'">
+				<div id="role" class="tab-pane fade in active answContainer">
+					<pending-role></pending-role>
+				</div>
+				<div id="class" class="tab-pane fade answContainer"> 
+					<pending-class></pending-class>            
+				</div>
+			  </div>
+		</div>
+	</div>
+      <page-footer></page-footer>
+  </body>
+</html>

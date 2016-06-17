@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "QuizManager">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<script src="./assets/js/jquery-1.11.0.min/jquery-1.11.0.min.js"></script>
+    <script src="./assets/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <meta name="description" content="">
+    <meta name="Autore" content="">
+    <link rel="icon" href="./assets/img/favicon.ico">
+
+    <title>Creazione quiz</title>
+
+    <link href="./assets/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+	<!-- quizzipedia.base.css -->
+	<link href="./assets/css/quizzipedia.base.css" rel="stylesheet">
+	
+	<!-- Merge others eventually -->
+	<link href="./assets/css/split/forms.css" rel="stylesheet">
+	
+	<!-- select2.js -->
+	<link href="./assets/js/select2-4.0.2/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="./assets/js/select2-4.0.2/dist/js/select2.min.js"></script>
+	
+	<!-- chained.js -->
+	<script src="./assets/js/jquery.chained.min.js"></script>
+      
+    <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./assets/js/ui-bootstrap-tpls-1.3.2.min.js"></script> 
+      
+    <!-- CONTROLLER E CORE -->      
+    <script type="text/javascript" src="./public/core.js"></script>
+    <script type="text/javascript" src="./public/header/CtrlHeader.js" ></script>
+    <script type="text/javascript" src="./public/quiz_creation/CtrlQuizManager.js" ></script>
+    <script type="text/javascript" src="./public/footer/Pagination.js" ></script>
+      
+    <!-- FACTORY -->	
+    <script type="text/javascript" src="./public/services/Quiz.js" ></script>
+    <script type = "text/javascript" src = "./public/services/Class.js"></script>
+      
+    <!-- Directive angular-->
+    <script src="./public/header/headerLoggedTeacher.js"></script>
+    <script type="text/javascript" src="./public/footer/pageFooter.js"></script>
+    <script type="text/javascript" src="./public/quiz_creation/searchQuestions.js" ></script>
+	
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+  </head>
+
+  <body>
+	<div class="pagewrap" ng-controller="CtrlHeader">
+        
+        <div >        
+			  <header-logged-teacher ng-if="user.role == 'teacher'"></header-logged-teacher> 
+		</div>
+        
+        <div class="row-fluid breadcrumb-div">
+            <ol class="breadcrumb" id="breadcrumb">
+                <li>
+                    Sei in: <a href = "/Quizzipedia/home"><i class="glyphicon glyphicon-home"> </i> Home</a>
+                </li>
+                <li>
+                    <a href = "/Quizzipedia/quizMgmt"><i class="glyphicon glyphicon-list-alt"> </i> Gestione quiz </a>               
+                </li>
+                <li class="active">
+                    <i class="glyphicon glyphicon-pencil"> </i> Creazione quiz
+                </li>
+            </ol>
+        </div>
+        
+        <div class = "container" ng-controller = "CtrlQuizManager">
+            
+            <h4 class="text-center description"><i class="glyphicon glyphicon-pencil"></i> Crea un nuovo quiz</h4>
+            
+            <div class="alert alert-danger text-center">
+                <div>
+                    <span class="glyphicon glyphicon-warning-sign"></span> Prima di procedere alla creazione di quiz, assicurati di aver creato tutte le domande.</div>
+                <div><a href = "/Quizzipedia/createQuestion">Creale qui.</a></div>
+            </div>
+            
+            <!--<p>QUIZ:: {{myQuiz}}</p>-->
+        
+        <form class="form" ng-submit = "saveQuiz()">
+            
+            <!-- title -->
+            <div class="form-group row">
+                <label for="inputTitle" class=" form-control-label">Titolo</label>
+                <input type="text" class="form-control" id="inputTitle" placeholder="Inserire il titolo del quiz"  ng-model = "myQuiz.title" required autofocus>
+            </div>
+            
+            <!-- description -->
+            <div class="form-group row">
+                <label for="inputDescription" class=" form-control-label">Descrizione</label>
+                <textarea class="form-control" type="textarea" id="inputDescription" placeholder="Inserire la descrizione" maxlength="140" rows="7" ng-model = "myQuiz.description"></textarea>
+            </div>
+            
+            <!-- permission-->
+            <div class="form-group row">
+                <fieldset class="form-group">
+                    <label for="permission">Permesso</label>
+                    <select class="form-control" id="permission" ng-model = "permission">
+                        <option value="public">Pubblico</option>
+                        <option value="private">Privato</option>
+                    </select>
+                </fieldset>
+            </div>
+            
+            <!-- private inst/class select - maybe make only visible if private is selected (dropdown?) -->
+            <div class="form-group row">
+                <fieldset class="form-group">
+                    <label for="inst">Ente</label>
+                    <p>{{user.institution}}</p>
+                </fieldset>
+            </div>
+            
+            <div class="form-group row" ng-if = "permission == 'private'">
+                <fieldset class="form-group">
+                    <label for="class">Classe</label>
+                    <!-- load classes for selected institution -->
+                    <div>
+                        <p ng-if = "userClassess.length == 0">Non sei docente di nessuna classe</p>
+                        <span ng-if = "userClasses.length != 0" ng-repeat = "(index, class) in userClasses">
+                        <input type = "checkbox" id="classSelect" name="class" ng-model = "myQuiz.classes[index]" ng-true-value="'{{class.class_id}}'" ng-false-value="null"> {{class.className}}
+                        </span>
+                    </div>
+                </fieldset>
+            </div>
+            
+            <!-- end of private inst/class select -->
+            
+            <!-- topic-->
+            <div class="form-group row">
+                <fieldset class="form-group">
+                    <label for="topic">Argomento</label>
+                    <select class="form-control" id="topic" ng-model = "myQuiz.topic">
+                        <option ng-repeat = "topic in topics">{{topic.topicName}}</option>
+                    </select>
+                </fieldset>
+            </div>
+            
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $("#topic").select2();
+                });
+            </script>
+            
+            <!-- diff level
+            <div class="form-group row">
+                <fieldset class="form-group">
+                    <--idk the stars are cool, animate them w jquery if theres time
+                    <label for="difficultyLevel">Livello di difficoltà <i class="glyphicon glyphicon-star"></i><i class="glyphicon glyphicon-star-empty"></i><i class="glyphicon glyphicon-star-empty"></i><i class="glyphicon glyphicon-star-empty"></i></label>
+                    <select class="form-control" id="difficultyLevel" ng-model = "myQuiz.">
+                        <option value = "1">Facile</option>
+                        <option value = "2">Media</option>
+                        <option value = "3">Difficile</option>
+                        <option value = "4">Molto difficile</option>
+                    </select>
+                </fieldset>
+            </div> -->
+            
+            <div class="form-group row">
+                <fieldset class="form-group">
+                    <label for="inputTags">Parole chiave</label>
+                    <select id="inputTags" multiple="multiple" class="form-control" ng-model = "myQuiz.keywords">
+                    </select><br><br>
+                    <script>
+                        $('#inputTags').select2({
+                            tags: true,
+                            tokenSeparators: [','], 
+                            placeholder: "Aggiungi qui le parole chiave"
+                        });
+                    </script>
+                </fieldset>
+            </div>
+        
+        <!-- questions -->
+        <fieldset class="form-group">
+            <label for="questions">Domande aggiunte</label>
+           <!-- added questions -->
+            <div ng-if = "myQuiz.questions.length == 0">Nessuna domanda aggiunta</div>
+            <div class="table-responsive" ng-if = "myQuiz.questions.length != 0">
+                <table id="classTable" class="table table-borderless table-striped table-hover table-compact">                    
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat = "(index, question) in myQuiz.questions">
+                            <td>{{question.title}}</td>
+                            <td style="width:10%"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Remove" data-toggle="modal" data-target="#remove" ng-click = "removeQuestion(index)"><span class="glyphicon glyphicon-remove"></span></button></p></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- end of table -->
+            </div>
+            
+             <!-- add question button -->
+            <br>
+            
+            <button type="button" class="btn btn-lg btn-primary btn-small" data-title="Cerca" data-toggle="modal" data-target="#qSearchBar"><i class="glyphicon glyphicon-search"></i> Cerca domanda esistente</button><br><br>
+            
+            <div class="modal fade" id="qSearchBar" tabindex="-1" role="dialog" aria-labelledby="search" aria-hidden="true">            
+                <search_questions></search_questions>
+            </div>
+            </fieldset>
+                    
+            <button type="submit" class="btn btn-lg btn-primary btn-block" value="Conferma"> Conferma</button>
+            </form>
+        </div> <!-- /container -->
+      </div>
+      <page-footer></page-footer>
+    </body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+
+			<!-- question body - variable structure depending on qtype -->
+			<div class="well answContainer qComplContainer row">
+				<p class="answerBlock bluebg">
+                    <span ng-repeat = "(index, textChunk) in answer.question.details.text">
+                        <span ng-if = "textChunk.type == 'txt'">{{textChunk.value}}</span>
+                        <input ng-if = "textChunk.type == 'id'" type="text" class="limit-width" placeholder=" inserisci parola esatta" ng-model = "answer.givenAnswer[index]" required />
+                    </span>
+				.</p>
+                
+				<div class="spacer"></div>
+                
+				<div class="answerBlock bluebg text-center">
+					<div class="drag" ng-repeat = "(index, textChunk) in answer.question.details.answer">
+						<span>{{textChunk.text}}</span>
+					</div>				
+				</div>
+			</div>
+<!--
+<p>DOMANDA: {{answer}}</p>
+<p>RISULTATO: {{answer.givenAnswer}}</p>
+-->
+
+			<!-- end of question body -->
+					
+
+
+
+

@@ -1,0 +1,69 @@
+		<div class="header">
+		<div class="container">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar-header inline">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand qIcon" href="/Quizzipedia/home"><img src="./assets/img/big_icon.png" /></a>
+
+            </div>
+			
+            <ul class="nav navbar-right top-nav pull-right inline">
+				<li class="hidden-xs">
+                    <a href="/Quizzipedia/signup">Registrati</a>
+                </li>
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Accedi</b> <span class="caret"></span></a>
+					<ul id="login-dp" class="dropdown-menu pull-right">
+						<li>
+							 <div class="row">
+									<div class="col-md-12">
+										 <form class="form" role="form" ng-submit="signin()" accept-charset="UTF-8" id="login-nav">
+												<div class="form-group">
+													 <label class="sr-only" for="inputEmail">Indirizzo email</label>
+													 <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Indirizzo email" ng-model="email" required>
+												</div>
+												<div class="form-group">
+													 <label class="sr-only" for="inputPassword">Password</label>
+													 <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="password" required>
+                                                    <div class="help-block text-right"><a href="/Quizzipedia/recover_pswd">Hai dimenticato la tua password?</a></div>
+												</div>
+                                                <input type="hidden" id="url" name="url" value="">
+												<div class="form-group">
+													 <button type="submit" class="btn btn-primary btn-block">Accedi</button>
+												</div>
+										 </form>
+									</div>
+									<div class="bottom text-center">
+										Non hai un account? <a href="/Quizzipedia/signup"><b>Registrati!</b></a>
+									</div>
+							 </div>
+						</li>
+					</ul>
+				</li>
+            </ul>
+
+             <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/Quizzipedia/home"><i class="glyphicon glyphicon-home"></i> Home</a>
+                    </li>
+                    <li>
+                        <a href="/Quizzipedia/searchQuiz"><i class="glyphicon glyphicon-list-alt"></i> Quiz pubblici</a>
+                    </li>
+					 <li>
+                        <a href="/Quizzipedia/instList"><i class="glyphicon glyphicon-education"></i> Enti iscritti</a>
+                    </li>					
+                    <li>
+                        <a href="/Quizzipedia/aboutUs"><i class="glyphicon glyphicon-sunglasses"></i> Chi siamo</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+		</div>
+	</div>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="it" ng-app="QuizSolver">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	 <script src="./assets/js/jquery-1.11.0.min/jquery-1.11.0.min.js"></script>
+    <script src="./assets/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <meta name="description" content="">
+    <meta name="Autore" content="">
+    <link rel="icon" href="./assets/img/favicon.ico">
+
+    <title>Svolgimento quiz</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+	<!-- quizzipedia.base.css -->
+	<link href="./assets/css/quizzipedia.base.css" rel="stylesheet">
+      
+      <!-- select2.js -->
+	<link href="./assets/js/select2-4.0.2/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="./assets/js/select2-4.0.2/dist/js/select2.min.js"></script>
+	
+	<!-- chained.js -->
+	<script src="./assets/js/jquery.chained.min.js"></script>
+	
+	<!-- draggable.js -->
+	<link href="./assets/js/jquery-ui-1.11.4.custom/jquery-ui.css" rel="stylesheet">
+	<script src="./assets/js/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+       
+      
+      <!-- ANGULAR -->
+      <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+      
+      <script type="text/javascript" src="./public/core.js"></script>
+      <script type="text/javascript" src="./public/quiz_execution/quizExecDirectives.js"></script>
+      <script type="text/javascript" src="./public/quiz_execution/CtrlQuizExec.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerQuestion.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerTrueFalseQ.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerShortAnswerQ.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerMultipleChoiceQ.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerCompletionQ.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerMatchingQElement.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerMatchingQ.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerQuiz.js"></script>
+      <script type="text/javascript" src="./public/header/CtrlHeader.js"></script>
+      <!-- Directive angular (HEADER)-->
+    <script type="text/javascript" src="./public/header/headerNotLogged.js"></script>
+    <script type="text/javascript" src="./public/header/headerLogged.js"></script>
+    <script type="text/javascript" src="./public/header/headerLoggedStudent.js"></script>
+    <script type="text/javascript" src="./public/header/headerLoggedTeacher.js"></script>
+    <script type="text/javascript" src="./public/header/headerLoggedDirector.js"></script>
+      <!--Directive angular (FOOTER)-->
+    <script type="text/javascript" src="./public/footer/pageFooter.js"></script>
+      
+      
+      
+      <!--<script type="text/javascript" src="./public/services/GenericQuestion.js"></script>
+      <script type="text/javascript" src="./public/services/TrueFalseQ.js"></script>
+      <script type="text/javascript" src="./public/services/ShortAnswerQ.js"></script>
+      <script type="text/javascript" src="./public/services/Attachment.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerMultipleChoice.js"></script>
+      <script type="text/javascript" src="./public/services/MultipleChoiceQ.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerCompletion.js"></script>
+      <script type="text/javascript" src="./public/services/TextCompletion.js"></script>
+      <script type="text/javascript" src="./public/services/CompletionQ.js"></script>
+      <script type="text/javascript" src="./public/services/AnswerMatchingElement.js"></script>
+      <script type="text/javascript" src="./public/services/MatchingQ.js"></script> -->
+	
+      <!-- SCRIPT PER ng-file-upload-->
+      <script src="./assets/ng-file-upload-bower-12.0.4/ng-file-upload-shim.min.js"></script>
+      <script src="./assets/ng-file-upload-bower-12.0.4/ng-file-upload.min.js"></script>
+      
+      
+      
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+	<div ng-controller="CtrlExecutionQuiz">
+        
+        <div ng-controller="CtrlHeader"> 
+          
+          <header-not-logged ng-if="user.role== null"></header-not-logged>          
+          <header-Logged ng-if="user.role == 'noRole'"></header-Logged>
+          <header-logged-student ng-if="user.role == 'student'"></header-logged-student>
+          <header-logged-teacher ng-if="user.role == 'teacher'"></header-logged-teacher>          
+          <header-logged-director ng-if="user.role == 'director'"></header-logged-director>
+          
+          <div class="row-fluid breadcrumb-div">
+              <ol class="breadcrumb" id="breadcrumb">
+                  <li>
+                      Sei in: <a href = "/Quizzipedia/home">
+                      <i class="glyphicon glyphicon-home"> </i> Home
+                      </a>
+                  </li>
+                  <li>
+                      <a href = "/Quizzipedia/searchQuiz">
+                      <i class="glyphicon glyphicon-search"> </i> Ricerca quiz
+                      </a>
+                  </li>                  
+                  <li class = "active"><i class="glyphicon glyphicon-pencil"> </i> Risoluzione quiz </li>       
+              </ol>
+          </div> 
+        
+		<div class="container">
+			<!-- first page panel -->
+			<div class="panel panel-default qPanel">
+				<!-- panel heading -->
+				<div class="panel-heading">
+					<!-- if quiz is private -->
+					<div class="row instClass">
+						<p class="col-md-6 col-sm-6 col-xs-6">{{quiz.institution}}</p>
+						<p class="col-md-6 col-sm-6 col-xs-6 text-right" ng-if="quiz.classes.length == 0">Quiz pubblico</p>
+						<p class="col-md-6 col-sm-6 col-xs-6 text-right" ng-if="quiz.classes.length > 0">Quiz privato</p>
+					</div>
+					<div class="row">
+						<div class="quizTitle">
+							<h3 class="panel-title text-center"><i class="glyphicon glyphicon-th-list"></i> {{quiz.title}}</h3>
+							<p class="text-center">{{quiz.author}}</p>
+						</div>
+						<div class="tinybox center-div">
+							<p class="text-center">Difficoltà:</p>
+							<!-- custom stars according to difficulty -->
+							<span class="diffStars">
+								<span class="yellow-glyphs" ng-if="quiz.difficulty=='Facile'">
+									<i class="glyphicon glyphicon-star"></i>
+									<i class="glyphicon glyphicon-star-empty"></i>
+									<i class="glyphicon glyphicon-star-empty"></i>
+									<i class="glyphicon glyphicon-star-empty"></i>
+								</span>
+								 <span class="yellow-glyphs" ng-if="quiz.difficulty=='Medio'">
+									<i class="glyphicon glyphicon-star"></i>
+									<i class="glyphicon glyphicon-star"></i>
+									<i class="glyphicon glyphicon-star-empty"></i>
+									<i class="glyphicon glyphicon-star-empty"></i>
+								</span>
+								 <span class="yellow-glyphs" ng-if="quiz.difficulty=='Difficile'">
+									<i class="glyphicon glyphicon-star"></i>
+									<i class="glyphicon glyphicon-star"></i>
+									<i class="glyphicon glyphicon-star"></i>
+									<i class="glyphicon glyphicon-star-empty"></i>
+								</span>
+								 <span class="yellow-glyphs" ng-if="quiz.difficulty=='Molto difficile'">
+									<i class="glyphicon glyphicon-star"></i>
+									<i class="glyphicon glyphicon-star"></i>
+									<i class="glyphicon glyphicon-star"></i>
+									<i class="glyphicon glyphicon-star"></i>
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- end of panel heading -->
+				<!-- beginning of body -->
+				<div class="panel-body" ng-if = "currentPage == -1"> 
+					
+					<!-- description -->
+					<div class="panel panel-default quizDescr">
+						<div class="panel-heading">
+							<h6 class="text-center">Descrizione</h6>
+						</div>
+						<div class="panel-body">
+							<p class="text-center" ng-if = "quiz.description != null">{{quiz.description[0]}} </p>
+							<p class="text-center" ng-if = "quiz.description == null">Non sono state fornite istruzioni per lo svolgimento di questo quiz.</p>
+						</div>
+					</div>
+					<!-- end of description -->
+					<div class="clearfix"></div> <!-- DA TOGLIERE -->
+					<div class="text-center">Questo quiz contiene <span class="label-as-badge label-blue">{{quiz.questions.length}}</span> domande.</div>
+					<div class="text-center pull-bottom"><button class="btn btn-lg btn-primary" id="startQuiz" type="button" ng-click = "changeCurrentPage(1)">Inizia</button></div>
+					<!-- end of canvas -->
+				</div>
+							
+				<div ng-repeat = "(index, answer) in answerQuiz.answerQuestion track by $index">  
+					<div class="panel-body" ng-if = "currentPage == index">
+						<div class="row"> 
+							<!-- title -->
+							<div class="col-md-3">							
+								<h4 class="text-center"><i class="glyphicon glyphicon-question-sign"></i>{{answer.question.title}}</h4>
+								<h6 class="text-center">{{answer.question.topic}}</h6>
+									<p class="diffStars"> 
+										<span class="yellow-glyphs" ng-if="quiz.difficulty=='1'">
+											<i class="glyphicon glyphicon-star"></i>
+											<i class="glyphicon glyphicon-star-empty"></i>
+											<i class="glyphicon glyphicon-star-empty"></i>
+											<i class="glyphicon glyphicon-star-empty"></i>
+										</span>
+										 <span class="yellow-glyphs" ng-if="quiz.difficulty=='2'">
+											<i class="glyphicon glyphicon-star"></i>
+											<i class="glyphicon glyphicon-star"></i>
+											<i class="glyphicon glyphicon-star-empty"></i>
+											<i class="glyphicon glyphicon-star-empty"></i>
+										</span>
+										 <span class="yellow-glyphs" ng-if="quiz.difficulty=='3'">
+											<i class="glyphicon glyphicon-star"></i>
+											<i class="glyphicon glyphicon-star"></i>
+											<i class="glyphicon glyphicon-star"></i>
+											<i class="glyphicon glyphicon-star-empty"></i>
+										</span>
+										 <span class="yellow-glyphs" ng-if="quiz.difficulty=='4'">
+											<i class="glyphicon glyphicon-star"></i>
+											<i class="glyphicon glyphicon-star"></i>
+											<i class="glyphicon glyphicon-star"></i>
+											<i class="glyphicon glyphicon-star"></i>
+										</span>
+                                </p>
+							</div>
+							
+							<!-- description -->                        
+							<div class="col-lg-6 col-lg-offset-0 col-md-6 col-md-offset-0 col-sm-6 col-sm-offset-3 col-xs-12">
+								<div class="well">{{answer.question.description}}</div>
+							</div>
+							
+							<!--ATTACHMENT QUESTION-->
+							<div class="clearfix attachment text-center" ng-if = "answer.question.details.questionAttachment != null">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if = "answer.question.details.questionAttachment.type == 'img'">
+									<img ng-src="{{getIframeSrc(answer.question.details.questionAttachment.path)}}" />
+
+								</div>						
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if = "answer.question.details.questionAttachment.type == 'vid'">
+                                    <video  ng-src="{{getIframeSrc(answer.question.details.questionAttachment.path)}}" controls >
+                                        
+                                        
+                                    </video>
+								</div>
+								<div class="" ng-if = "answer.question.details.questionAttachment.type == 'aud'">
+									<div class="spacer"></div>
+									<div class="center-div well">
+										<p class="text-center space-vertical">Allegato audio: </p>
+										<audio ng-src="{{getIframeSrc(answer.question.details.questionAttachment.path)}}"  controls />
+									</div>
+								</div>							
+
+							</div>              
+						</div>                    
+						<!-- end of row -->              
+						<!-- question body - variable structure depending on qtype -->	       
+		   
+
+					
+					<div ng-if="answer.question.type == 'trfs'">
+						<quiz-exec-true-false></quiz-exec-true-false>
+					</div>
+					<div class="panel-body" ng-if="answer.question.type == 'mult'">
+						<quiz-exec-multiple></quiz-exec-multiple>
+					</div>
+					<div class="panel-body"  ng-if="answer.question.type == 'open'">
+						<quiz-exec-open></quiz-exec-open>
+					</div>
+					<div class="panel-body" ng-if="answer.question.type == 'cmpl'">
+						<quiz-exec-completion></quiz-exec-completion>
+					</div>
+					<div class="panel-body"  ng-if="answer.question.type == 'mtch'">
+						<quiz-exec-matching></quiz-exec-matching>
+					</div>
+						
+						<div class="clearfix"></div>
+							<div class="row qFooting">
+								<div class="center-div text-center">
+									
+								<span class="badge qNumber"><span class="qCurrent">{{index+1}}</span>/{{answerQuiz.answerQuestion.length}}</span>
+									
+								<span data-placement="top" data-toggle="tooltip" title="Previous" ng-if = "index != 0"><button class="btn btn-lg btn-primary nextBtn pull-left" type="button" ng-click = "changeCurrentPage(-1)"><i class="glyphicon glyphicon-arrow-left"></i></button></span>
+								 
+								<span data-placement="top" data-toggle="tooltip" title="Finish" ng-if = "(index + 1) == answerQuiz.answerQuestion.length"><button class="btn btn-lg btn-success nextBtn pull-right" type="button" ng-click = "saveQuiz()"><i class="glyphicon glyphicon-ok"></i> Correggi</button></span>
+								<span data-placement="top" data-toggle="tooltip" title="Next" ng-if = "(index+1) != answerQuiz.answerQuestion.length"><button class="btn btn-lg btn-primary nextBtn pull-right" type="button" ng-click = "changeCurrentPage(1)"><i class="glyphicon glyphicon-arrow-right"></i></button></span>
+									
+								</div>
+						 </div>
+					</div>
+				</div>
+            
+            <div class="panel-body qResult" ng-if = "currentPage == -2">
+			<!-- grade -->
+				<div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title text-center">
+							<i class="glyphicon glyphicon-pencil"></i> RISULTATO
+							<span class="label label-success" ng-if = "success() === true">{{punteggio}}/{{answerQuiz.answerQuestion.length}}</span>
+                            <span class="label label-danger" ng-if = "success() === false">{{punteggio}}/{{answerQuiz.answerQuestion.length}}</span>
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="list-group">
+							<span class="list-group-item" ng-repeat = "answer in answerQuiz.answerQuestion track by $index" >
+                                <span ng-if = "answer.isCorrect == false">                                    
+                                    <i class="danger glyphicon glyphicon-remove pull-right" style="color: #e14825;"></i> {{$index+1}}. 
+                                </span>
+                                <span ng-if = "answer.isCorrect == true">
+                                    
+                                    <i class="success glyphicon glyphicon-ok pull-right" style="color: #179917;"></i>{{$index+1}}. 
+                                </span>
+                                {{answer.question.title}}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+                <div class="clearfix"></div>
+							<div class="row qFooting">
+								<div class="center-div text-center">
+									
+                                    <span  class= "btn btn-primary"  data-placement="top" data-toggle="tooltip" title="Home"><a href = "/Quizzipedia/home"> Torna alla Home</a></span>
+                                    
+								</div>
+						 </div>
+			</div>
+            </div>
+            </div>
+			<!-- end of panel body -->
+		</div>
+		</div>
+		<div class="footer-fix">
+			<page-footer></page-footer>
+		</div>
+  </body>
+</html>
+
+
+
+
+
+

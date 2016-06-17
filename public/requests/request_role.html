@@ -1,0 +1,40 @@
+<!-- Role Request Tab -->
+
+    <div>
+        <div class="form-area">
+		<h3 class="text-center">Invia richiesta di ruolo {{institution}}</h3>
+            <form class="form">
+                <fieldset class="form-group">
+                    <label for="inst">Seleziona ente</label>
+                    <!-- load all institutions -->
+                    <select id = "instSelectRole" name = "instRole" class = "form-control" ng-model = "institution">
+                        <option ng-repeat="institution in institutions" value="{{institution.institution_name}}">{{institution.institution_name}}</option>
+				    </select>
+                </fieldset>
+                
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $("#instSelectRole").select2();
+                    });
+                </script>
+                
+                <fieldset class="form-group">
+                    <label for="role">Ruolo</label>
+                    <select class="form-control" id="role" ng-model="role"> 
+                        <option>Studente</option>
+                        <option>Docente</option>
+                    </select>
+                </fieldset>
+                
+                <div class="form-group">
+                    <textarea class="form-control" type="textarea" id="message" placeholder="Messaggio opzionale.." maxlength="140" rows="7" ng-model="message"></textarea>
+                </div>
+                
+                <button type="button" id="submitRole" name="submit" class="btn btn-primary pull-right" ng-click="sendRoleRequest()">Invia richiesta</button>
+            </form>
+        </div>
+		<div class="spacer"></div>
+    </div> <!-- end of form -->
+<!-- end of role request tab-->
+		  
+		

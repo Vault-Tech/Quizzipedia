@@ -1,0 +1,58 @@
+
+        <!-- MULTIPLE EXEC-->
+					
+			<div class="qOpenContainer">
+				<div class="answerBlock space space-vertical" ng-repeat = "(index, option) in answer.question.details.arrayAnswer track by $index">
+					<input type="checkbox" ng-model = "answer.givenAnswer[index]">
+					<span type = "textarea" ng-if = "option.textAnswer != null">{{option.textAnswer}}</span>
+					<span type = "textarea" ng-if = "(option.textAnswer == null) && (option.attachment != null)">
+						<span ng-if = "option.attachment.type == 'img'"> <!-- sostituito div con span sennò va a capo dopo la checkbox -->
+							<img ng-src="{{getIframeSrc(option.attachment.path)}}" />
+						</span>
+						<span ng-if = "option.attachment.type == 'vid'">
+							<video  ng-src="{{getIframeSrc(option.attachment.path)}}" controls >
+						</span>
+						<span ng-if = "option.attachment.type == 'aud'">
+							<audio ng-src="{{getIframeSrc(option.attachment.path)}}"  controls />
+						</span>
+					</span>
+				</div>						
+					<!--<video id="video1" height="100" style="padding-left: 5px;" controls="controls" onclick="toggleFullScreen()">
+						<source src="http://html5demos.com/assets/dizzy.mp4">
+						<source src="http://html5demos.com/assets/dizzy.ogv">
+					</video>	-->						
+
+					</div>
+<!--<p>DOMANDA: {{answer}}</p>
+<p>RISULTATO: {{answer.givenAnswer}}</p>
+-->
+					<!-- end of question body -->
+
+<!-- <script>
+	 function makeFullScreen() {
+        var elem = document.document.getElementsByClassName("fullscreen");
+		for(int i=0; i<elem.length; i++){
+		  if (elem[i].requestFullscreen) {
+			elem[i].requestFullscreen();
+		  }
+		  else if (elem[i].msRequestFullscreen) {
+			elem[i].msRequestFullscreen();               
+		  }
+		  else if (elem[i].mozRequestFullScreen) {
+			elem[i].mozRequestFullScreen();      
+		  }
+		  else if (elem[i].webkitRequestFullscreen) {
+			elem[i].webkitRequestFullscreen();       
+		  } else {
+			console.log("Fullscreen API is not supported");
+		  } 
+		}
+    }
+</script> -->
+		
+
+
+
+
+
+

@@ -1,0 +1,78 @@
+		<!-- answers -->
+		<div class="form-group row text-center">
+			<h4>Istruzioni</h4>
+			<p>Per inserire una risposta scegliere la tipologia tra allegato o semplice testo.</p>
+			<p>Dopo aver inserito diverse risposte indicare quali siano corrette spuntando il check corrispondente.</p>
+			<div class="spacer"></div>
+			
+			<h4 class="text-center">Risposte</h4>
+				<!-- new upload -->
+				<div class="form-group row">
+					<!-- <label for="inputDescription" class=" form-control-label"></label><br> -->
+					
+                    <!--<span class="btn btn-default " data-placement="top" data-toggle="tooltip" title="Upload attachment" ng-click="MyMultipleChoiceQ.preUpload(MyMultipleChoiceQ.size)">   
+                        <!-- 
+                        
+						<i class="glyphicon glyphicon-upload"></i> <!--<input type="button" id="newAttach" ng-click="MyMultipleChoiceQ.preUpload(MyMultipleChoiceQ.size); MyMultipleChoiceQ.size = MyMultipleChoiceQ.size+1 ">--> <!--onchange="loadFile(event)"
+                        
+					</span>-->
+                    
+                    <span class="btn btn-default " data-placement="top" data-toggle="tooltip" title="Upload attachment" ng-click="MyMultipleChoiceQ.preUpload(MyMultipleChoiceQ.size)">
+                        <!-- STO MODIFICANDO QUI -->
+                        
+						<i class="glyphicon glyphicon-upload"></i>
+                        <!--onchange="loadFile(event)"-->
+                        
+					</span>
+                    
+                    
+                    
+					<!-- <label for="inputDescription" class=" form-control-label"></label><br> -->
+					<span class="btn btn-default" type="button" id="newAText" ng-click="MyMultipleChoiceQ.create(MyMultipleChoiceQ.size);"  data-placement="top" data-toggle="tooltip" title="New textarea"> <!-- $root.callWindowMethod('createTextarea', MyMultipleChoiceQ.size);-->
+						<i class="glyphicon glyphicon-align-left"></i>
+					</span>
+				</div>
+				<div class="answContainer bluebg"> 
+					<!-- CREAZIONE HTML NUOVI ELEMENTI CARICATI: <div class="answerBlock"><div class="drag"><checkbox><allegato><pulsante X></div></div> -->
+				
+					<div class="answerBlock" id="newBlock">
+					<!--  creare dinamicamente answerBlock con id newBlock# e stampare contenuti usando createTextArea() e loadFile() -->
+					<!--  upload sballato se si aggiungono + elementi senza ricaricare perchè gli id non sono incrementati -->
+                        
+                        <div class="answerBlock" ng-repeat="answer in MyMultipleChoiceQ.question.arrayAnswer track by $index"> <!-- METTERE UN BEL NG-REPEAT-->
+                                <!-- ng-repeat="q in MyMultipleChoiceQ.question.answers track by $index" -->
+                            
+                            
+                            <div class="drag" id="{{$index}}">
+                                <input type="checkbox" ng-model="answer.isTrue">
+                                
+                                
+                                <textarea ng-if="answer.textAnswer != null " type="textarea" placeholder="Risposta..." name="ta1" id="ta1" cols="15" rows="1" ng-model="answer.textAnswer"></textarea>
+                                
+                                
+                                <input ng-if="answer.attachment != null" type="file" ngf-select="uploadFiles($files,'answer',{{$index}})" name="file+{{$index}}" ngf-pattern="image/*,video/*,audio/*" accept="image/*,video/*,audio/*" ngf-max-size="20MB" >
+                                
+                                <!-- onchange="angular.element(this).scope().readURL(this,{{$index}})"-->
+                               
+                                
+                                
+                                
+                                <!--a href="#"><i class="glyphicon glyphicon-remove"></i></a>-->
+                                <span class="btn" ng-click="MyMultipleChoiceQ.remove($index)"><i class="glyphicon glyphicon-remove"></i></span>
+                            </div>
+                            
+                        </div>
+                            
+                        
+					</div>
+				
+				</div> 
+		</div>
+	
+  
+
+
+
+
+
+

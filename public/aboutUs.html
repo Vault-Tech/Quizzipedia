@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Quizzipedia">
+  <head>
+    <meta charset="utf-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	 <script src="./assets/js/jquery-1.11.0.min/jquery-1.11.0.min.js"></script>
+    <script src="./assets/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./assets/img/favicon.ico">
+
+    <title>Chi siamo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+	<!-- quizzipedia.base.css -->
+	<link href="./assets/css/quizzipedia.base.css" rel="stylesheet">
+
+    <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+      
+    <script type="text/javascript" src="./public/core.js"></script>	
+    <script type="text/javascript" src="./public/header/CtrlHeader.js" ></script>
+    
+    <!-- Directive angular (HEADER)-->
+    <script type="text/javascript" src="./public/header/headerLogged.js"></script>
+    <script type="text/javascript" src="./public/header/headerNotLogged.js"></script>
+    <script type="text/javascript" src="./public/header/headerLoggedStudent.js"></script>
+    <script type="text/javascript" src="./public/header/headerLoggedTeacher.js"></script>
+    <script type="text/javascript" src="./public/header/headerLoggedDirector.js"></script>
+    <!--Directive angular (FOOTER)-->
+    <script type="text/javascript" src="./public/footer/pageFooter.js"></script>
+	
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="pagewrap">
+      <div ng-controller="CtrlHeader">
+          <header-Not-Logged ng-if="user.role == null"></header-Not-Logged>   
+          <header-Logged ng-if="user.role == 'noRole'"></header-Logged>        
+          <header-logged-student ng-if="user.role == 'student'"></header-logged-student>         
+          <header-logged-teacher ng-if="user.role == 'teacher'"></header-logged-teacher>         
+          <header-logged-director ng-if="user.role == 'director'"></header-logged-director>
+	</div>
+        
+        <div class="row-fluid breadcrumb-div">
+            <ol class="breadcrumb" id="breadcrumb">
+                <li>
+                    Sei in: <a href = "/Quizzipedia/home"><i class="glyphicon glyphicon-home"> </i> Home</a>
+                </li>
+                <li class="active">
+                    <i class="glyphicon glyphicon-sunglasses"> </i> Chi siamo
+                </li>
+            </ol>
+        </div>
+        
+      
+	<div class="team container">
+		<div class="row">
+		  <div class="col-md-10 col-md-offset-1">
+			<div class="col-lg-12">
+			  <h4 class="description text-center">Chi siamo</h4>
+			  <div class="row pt-md">
+			  
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 profile text-center">
+				  <div class="img-box">
+					<img src="./assets/img/portraits/usr2.jpg" class="img-responsive">
+				  </div>
+				  <h1>Giacomo Beltrame</h1>
+				  <h2>Progettista</h2>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 profile text-center">
+				  <div class="img-box">
+					<img src="./assets/img/portraits/usr3.jpg" class="img-responsive">
+				  </div>
+				  <h1>Rudy Berton</h1>
+				  <h2>Responsabile</h2>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 profile text-center">
+				  <div class="img-box">
+					<img src="./assets/img/portraits/usr4.jpg" class="img-responsive">
+				  </div>
+				  <h1>Simone Boccato</h1>
+				  <h2>Progettista</h2>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 profile text-center">
+				  <div class="img-box">
+					<img src="./assets/img/portraits/usr5.jpg" class="img-responsive">
+				  </div>
+				  <h1>Michela De Bortoli</h1>
+				  <h2>Programmatore</h2>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 profile text-center">
+				  <div class="img-box">
+					<img src="./assets/img/portraits/usr1.jpg" class="img-responsive">
+				  </div>
+				  <h1>Vassilikì Menarin</h1>
+				  <h2>Amministratore</h2>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 profile text-center">
+				  <div class="img-box">
+					<img src="./assets/img/portraits/usr6.jpg" class="img-responsive">
+				  </div>
+				  <h1>Filippo Tesser</h1>
+				  <h2>Verificatore</h2>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 profile text-center">
+				  <div class="img-box">
+					<img src="./assets/img/portraits/usr7.jpg" class="img-responsive">
+				  </div>
+				  <h1>Miki Violetto</h1>
+				  <h2>Programmatore</h2>
+				</div>
+				
+			  </div>
+			  <div class="spacer"></div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+       <page-footer></page-footer>
+  </body>
+</html>
+
+
+
+
+
+

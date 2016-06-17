@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="StatisticManager">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	 <script src="./assets/js/jquery-1.11.0.min/jquery-1.11.0.min.js"></script>
+    <script src="./assets/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <meta name="description" content="">
+    <meta name="Autore" content="">
+    <link rel="icon" href="./assets/img/favicon.ico">
+
+    <title>Statistiche studenti</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+	<!-- quizzipedia.base.css -->
+	<link href="./assets/css/quizzipedia.base.css" rel="stylesheet">
+	      
+    <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+      
+    <script type="text/javascript" src="./public/core.js"></script>
+	<script type="text/javascript" src="./public/header/CtrlHeader.js" ></script>
+	
+    <!-- select2.js -->
+	<link href="./assets/js/select2-4.0.2/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="./assets/js/select2-4.0.2/dist/js/select2.min.js"></script>
+	
+	<!-- chained.js -->
+	<script src="./assets/js/jquery.chained.min.js"></script>
+    <!-- Directive angular (HEADER)-->
+	<script src="./public/header/headerLoggedTeacher.js"></script>
+	
+    <!--Directive angular (FOOTER)-->
+    <script type="text/javascript" src="./public/footer/pageFooter.js"></script> 
+      
+      <script type="text/javascript" src="./public/statistics/CtrlStatistics.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+	<div class="pagewrap">
+	
+		 <div ng-controller="CtrlHeader">                
+			  <header-logged-teacher ng-if="user.role == 'teacher'"></header-logged-teacher>         
+		</div>
+		
+				<div class="row-fluid breadcrumb-div">
+            <ol class="breadcrumb" id="breadcrumb">
+                <li>
+                    Sei in: <a href = "/Quizzipedia/home"><i class="glyphicon glyphicon-home"> </i> Home</a>
+                </li>
+                <li class="active">
+                    <i class="glyphicon glyphicon-stats"> </i> Statistiche studenti
+                </li>
+            </ol>
+        </div>
+		
+		<div class="container" ng-controller="CtrlStatistics">
+			<h4 class="description text-center"><i class="glyphicon glyphicon-blackboard"></i><i class="glyphicon glyphicon-stats"></i> Statistiche degli studenti</h4>
+			<div class="form-area">  
+			<form class="form">
+				<fieldset class="form-group">
+				<label for="inst">Classi</label><br>
+				<!-- load all classes the teacher belongs to -->
+				<select id="classSelect" name="class" class="form-control" ng-model="classSelected"><br>
+				  <option value="null">--</option>
+                    <option ng-repeat="class in classes track by $index" value="{{class._id}}">{{class.name}}</option>
+				  <!--<option value="chm">Chimica</option>
+				  <option value="ing">Inglese</option>-->
+				</select>
+				</fieldset>
+
+
+				<fieldset class="form-group">
+				<label for="class">Quiz</label>
+				<!-- load quizzes for selected class -->
+				<select id="quizSelect" name="quiz" class="form-control">
+				  <option value="">--</option>
+				  <option value="quiz1" class="chm">Struttura della materia</option>
+				  <option value="quiz2" class="chm">La tavola periodica</option>
+				  <option value="quiz3" class="inst1">Grammatica</option>
+				</select>
+				</fieldset>
+				
+				<script>$("#quizSelect").chained("#classSelect");</script>
+				</form>
+			</div>
+
+
+			{{classSelected}}
+
+			<!-- variable, loaded once quiz is selected -->
+			
+			<h4 class="text-center"><i class="glyphicon glyphicon-th-list"></i> Risultati</h4>
+			<table class="table table-hover table-compact qTable">
+				<thead>
+				<tr>
+				<th class="text-left">Cognome</th>
+				<th class="text-left">Nome</th>
+				<th class="text-left">Voto</th>
+				<th class="text-left">Risposte corrette</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr><td>Doe</td><td>John</td><td>75%</td><td>21/30</td></tr>
+				<tr><td>Doe</td><td>Jane</td><td>82%</td><td>21/30</td></tr>
+				<tr><td>Doe</td><td>James</td><td>0%</td><td>0/30</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<page-footer></page-footer>
+  </body>
+</html>

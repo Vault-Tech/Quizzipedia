@@ -1,0 +1,114 @@
+	<!-- search bar -->
+
+<div id="qSearchBar" class="modal-dialog">
+    <div class="modal-content">  
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click = "clearSearch()">&times;</button>
+            <h4 class="modal-title text-center" id="Heading"><i class="glyphicon glyphicon-search"></i> Cerca domande</h4>
+        </div>
+        
+        <div class="modal-body">
+			<div class="form">
+				<div class = "text-center">Compila i campi che desideri: </div>
+				<form role="form">
+					<br style="clear:both">
+					
+					<!-- Argomenti -->					
+						<fieldset class="form-group">
+						<label for="topics">Argomento</label>
+						<select class="form-control" id="topic" ng-model = "searchQ.topic">
+							<option ng-repeat = "topic in topics">{{topic.topicName}}</option>
+						</select>
+						</fieldset>
+					
+					<script type="text/javascript">
+						$(document).ready(function() { 
+							$("#topic").select2();
+						});
+					</script>
+					
+					<!-- Parola chiave -->                
+					<label for="inputTitle">Parola chiave</label>
+					<input type="text" id="inputTitle" class="form-control" placeholder="Parola chiave" ng-model = "searchQ.keyword"><br>
+					
+					<!-- Difficoltà -->
+					<fieldset class="form-group">
+							<label for="difficultyLevel">Livello di difficoltà</label>
+						<select class="form-control" id="difficultyLevel" ng-model = "searchQ.difficulty" ng-options = "livello.id as livello.name for livello in difficolta">
+						</select>
+					</fieldset>
+					
+					<!-- Autore -->					
+						<label for="inputAuthor">Autore</label>
+						<input type="text" id="inputAuthor" class="form-control" placeholder="Autore" ng-model = "searchQ.author"><br>					
+						<button class="btn btn-lg btn-primary btn-block" ng-click = "searchQuestion()">Cerca</button>
+					  </form>
+					</div>
+            <br/>
+                <h3 class="panel-title"><span class="badge">{{searchQuestions.length}}</span> domande trovate</h3>
+            
+            <div ng-controller = "CtrlPagination">
+                <div class= "text-center">
+                    <uib-pagination total-items="searchQuestions.length" ng-model="currentPage" class="pagination-sm" items-per-page="itemsPerPage" boundary-link-numbers="true" force-ellipses="true" max-size="maxSize"></uib-pagination> 
+                </div>
+                
+            <table class="table table-hover table-striped table-compact qTable" ng-if = "searchQuestions.length != 0">
+                
+                    <thead>
+                        <tr>
+                            <th class="text-center">Titolo</th>
+                            <th class="text-center">Argomento</th><th class="text-center">Tipo</th>
+                            <th class="text-center">Livello</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody class="text-center">
+                        <tr ng-repeat = "(index, question) in searchQuestions.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"> 
+                            <td>{{question.title}} </td>
+                            <td>{{question.topic}}</td>
+                            <td>{{question.type}}</td>
+                            <td>{{question.difficulty}}</td>
+                            <td>
+                                <span data-placement="top" data-toggle="tooltip" title="Aggiungi"><button class="btn btn-primary  pull-right" ng-click = "addQuestion(question)" title="Aggiungi"><span class="glyphicon glyphicon-plus"></span></button></span>
+                            </td>
+                        </tr>
+                    </tbody>              
+                               
+                </table>                               
+            </div>
+        
+        <div class="modal-footer ">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click = "clearSearch()"> Fine</button>
+        </div>
+    </div> 
+</div>
+    
+	
+<!-- Tabella risultati
+<table class="table table-hover table-striped table-compact qTable">
+	<thead>
+	<tr>
+	<th class="text-center">Titolo</th>
+	<th class="text-center">Materia</th>
+	<th class="text-center">Tipo</th>
+	<th class="text-center">Livello</th>
+	<th></th>
+	</tr>
+	</thead>
+	<tbody class="text-center">
+	<tr> 
+		<td>Valore titolo</td>
+		<td>Valore materia</td>
+		<td>Valore tipo</td>
+		<td>Valore livello</td>
+		<td>
+			<span data-placement="top" data-toggle="tooltip" title="Add"><button class="btn btn-primary  pull-right"><span class="glyphicon glyphicon-plus"></span></button></span>
+		</td>
+	</tr>
+	</tbody>
+</table> -->
+
+-->
+
+	
